@@ -1,0 +1,169 @@
+#include <iostream>
+
+
+// Ein Listenelement
+struct IntListElem
+{
+  IntListElem* next;  // Zeiger auf nächstes Element
+  int value;          // Daten zu diesem Element  
+} ;
+
+// Eine Liste
+struct IntList
+{
+  int count;          // Anzahl Elemente in der Liste
+  IntListElem* first; // Zeiger auf erstes Element der Liste
+} ;
+
+// Initialisiere eine Listenstruktur
+void empty_list( IntList* l )
+{
+  l->first = 0;   // 0 ist keine gueltige Adresse: Liste ist leer
+  l->count = 0;
+}
+
+
+// Entferne ein Element nach einem gegebenem
+// Liefere das entfernte Element zurueck
+IntListElem* remove_from_list( IntList* list, IntListElem* where )
+{
+  IntListElem* p;  // das entfernte Element
+
+  // where == 0 dann entferne erstes Element
+  if ( where == 0 ) 
+  {
+    p = list->first;
+    if ( p != 0 )
+    {
+      list->first = p->next;
+      list->count = list->count - 1;
+    }
+    return p;
+  }
+
+  // entferne Element nach where
+  p = where->next;
+  if ( p != 0 )
+  {
+    where->next = p->next;
+    list->count = list->count - 1;
+  }
+  return p;
+}
+
+
+// Fuege ein Element nach einem gegebenem ein
+void insert_in_list( IntList* list, IntListElem* where, IntListElem* ins )
+{
+  if ( where == 0 ) // fuege am Anfang ein
+  {
+    ins->next = list->first;
+    list->first = ins;
+    list->count = list->count + 1;
+  }
+  else              // fuege nach where ein
+  {
+    ins->next = where->next;
+    where->next = ins;
+    list->count = list->count + 1;
+  }
+}
+/*void liste_erzeugen(int n, int k)
+{
+	IntList listN;
+	empty_list(&listN);
+	IntListElem* p = listN.first;
+	IntListElem elemN[n];
+	for (int i = 0; i < n; i++)
+	{
+		insert_in_list(&listN, p, &elemN[i]);
+		p = elemN[i].next;
+	}
+	elemN[n].next = listN.first;
+	int i = 0;
+
+	IntList listK;
+	empty_list(&listK);
+	IntListElem* f = listK.first;
+	IntListElem elemK[k];
+	for (int i = 0; i < k; i++)
+	{
+		insert_in_list(&listK, f, &elemK[i]);
+		p = elemK[i].next;
+	}
+	elemK[n].next = listN.first;
+}*/
+
+
+/*int igel_und_hase()
+{
+	IntListElem* igel = listN.first;
+	IntListElem* hase = listN.first;
+	while (igel.next != hase.next)
+	{
+		i++;
+	}
+	std::cout << i << std::endl;
+	
+
+}*/
+int main()
+{
+	int n = 0;
+	std::cin >> n;
+	IntList listN;
+	empty_list(&listN);
+	IntListElem* p = listN.first;
+	IntListElem elemN[n];
+	for (int i = 0; i < n; i++)
+	{
+		insert_in_list(&listN, p, &elemN[i]);
+		//elemN[i].value = i+10;
+
+	}
+	elemN[0].next = listN.first;
+
+
+	int k = 0;
+	std::cin >> k;
+	IntList listK;
+	empty_list(&listK);
+	IntListElem* f = listK.first;
+	IntListElem elemK[k];
+	for (int i = 0; i < k; i++)
+	{
+		insert_in_list(&listK, f, &elemK[i]);
+		//elemK[i].value = i;
+		
+	}
+	elemK[0].next = listN.first;
+
+//igel und Hase
+
+	IntListElem* igel = listK.first;
+	igel = igel->next;
+	IntListElem* hase = listK.first;
+	hase = hase->next;
+	hase = hase->next;
+
+
+
+//std::cout << igel->value << std::endl;
+	int i = 0;
+	while (igel->next != hase->next)
+	{
+		if (igel->next == hase->next)
+		{
+			break;
+		}
+		igel = igel->next;
+		hase = hase->next;
+		hase = hase->next;
+		i++;
+//std::cout << igel->value << std::endl;
+	}
+	std::cout << i +1 << std::endl;	
+}
+//k und n > 0 ok
+//
+
